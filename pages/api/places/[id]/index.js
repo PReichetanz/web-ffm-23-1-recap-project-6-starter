@@ -20,6 +20,9 @@ export default async function handler(request, response) {
       $set: request.body,
     });
     response.status(200).json(placeToUpdate);
+  } else if (request.method === 'DELETE') {
+    const placeToDelete = await Place.findByIdAndDelete(id);
+    response.status(200).json(placeToDelete);
   } else {
     return response.status(405).json({ message: 'Method not allowed' });
   }
